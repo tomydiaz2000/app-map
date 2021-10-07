@@ -1,10 +1,14 @@
 import React, { useLayoutEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { useSelector } from 'react-redux'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
 import HeaderButton from '../components/HeaderButton'
 
 const PlaceListScreen = ({ navigation }) => {
+    const list = useSelector(state => state.places)
+    console.log(list)
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (
