@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
     switch(action.type) {
         case ADD_PLACE:
             const newPlace = new Place(
-                Date.now(), 
+                action.payload.id.toString(), 
                 action.payload.title,
                 action.payload.image
             )
