@@ -6,7 +6,7 @@ import { COLORS } from "../constants"
 const PlaceItem = props => {
     return (
         <TouchableOpacity onPress={props.onSelect}
-            style={StyleSheet.placeItem}>
+            style={styles.placeItem}>
             <Image style={styles.image}
                 source={{uri: props.image}}/>
             <View style={styles.info}>
