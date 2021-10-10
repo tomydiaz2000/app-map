@@ -1,7 +1,8 @@
 import * as FileSystem from 'expo-file-system'
-import { insertAddress } from '../db'
+import { insertAddress, fetchAddress } from '../db'
 
 export const ADD_PLACE = 'ADD_PLACE'
+export const LOAD_PLACES = 'LOAD_PLACES'
 
 export const addPlace = (title, image) => {
     return async dispatch => {
@@ -21,7 +22,6 @@ export const addPlace = (title, image) => {
                 13.4,
                 10.5
             )
-            console.log('En places.action' + result)
             
             dispatch( { type: ADD_PLACE, payload: { 
                 id: result.insertId,
@@ -31,6 +31,23 @@ export const addPlace = (title, image) => {
         } catch (err) {
             console.log(err.message)
             throw err
+        }
+    }
+}
+
+export const loadAdress = () => {
+    return async dispatch => {
+        try {
+            const result = await fetchAddress()
+            console.log(result)
+
+            dispatch({
+                type: LOAD_PLACES,
+                places: result.rows._array
+            })
+        } catch(error){
+            console.log(error.message)
+            throw error
         }
     }
 }

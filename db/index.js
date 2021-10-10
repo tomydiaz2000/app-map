@@ -3,7 +3,7 @@ import * as SQLite from 'expo-sqlite'
 const db = SQLite.openDatabase('address.db')
 
 export const init = () => { 
-    const promise = new Promise((resolve, reject) => {
+    return new Promise ((resolve, reject) => {
         db.transaction(
             (tx) => {
                 tx.executeSql(
@@ -15,8 +15,6 @@ export const init = () => {
             }
         )
     })
-
-    return promise
 }
 
 export const insertAddress = (
@@ -26,7 +24,7 @@ export const insertAddress = (
     lat,
     lng
 ) => {
-    const promise = new Promise((resolve, reject) => {
+    return new Promise ((resolve, reject) => {
         db.transaction(
             (tx) => {
                 tx.executeSql(
@@ -38,6 +36,15 @@ export const insertAddress = (
             }
         ) 
     })
+}
 
-    return promise
+export const fetchAddress = () => {
+    return new Promise ((resolve, reject) => {
+        db.transaction((tx) => {
+            tx.executeSql('SELECT * FROM address;',
+            [],
+            (_, result) => resolve(result),
+            (_, err) => reject(err))
+        })
+    })
 }

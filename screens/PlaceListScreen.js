@@ -1,14 +1,18 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+
+import { loadAdress } from '../store/places.actions'
 
 import HeaderButton from "../components/HeaderButton";
 import PlaceItem from "../components/PlaceItem";
 
 const PlaceListScreen = ({ navigation }) => {
+  const dispatch = useDispatch()
   const places = useSelector((state) => state.places.places);
   console.log(places);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -23,6 +27,10 @@ const PlaceListScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
+  useEffect(() => {
+    dispatch(loadAdress())
+  }, [navigation])
+
   return (
     <FlatList
       data={places}
@@ -31,7 +39,7 @@ const PlaceListScreen = ({ navigation }) => {
         <PlaceItem
           image={itemData.item.image}
           title={itemData.item.title}
-          address={null}
+          address="123 Street, City, Country"
           onSelect={() => {}}
         />
       )}
